@@ -9,7 +9,7 @@
 			<h1>${bean.title}</h1>
 			<p>${bean.text}</p>
 			${bean.imagePath}
-			<FORM action="/shindan/d2.html?">
+			<FORM action="/shindan/d.html?">
 				<INPUT type="submit" value="もう一度診断する">
 			</FORM>
 		</div>
