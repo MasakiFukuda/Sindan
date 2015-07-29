@@ -34,7 +34,14 @@
 				}else{
 					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
 					var xmlHttp = new XMLHttpRequest();
-					xmlHttp.open("GET","http://localhost:1080/sindan/questions/ques"+quesCount+".txt",false);
+					var host = location.host;
+					var path = location.pathname.split("/");
+					
+					var url = "http://"+host+"/"+path[1]+"/questions/ques"+quesCount+".txt";
+					
+					console.log(url);
+					
+					xmlHttp.open("GET",url,false);
 					xmlHttp.send(null);
 					document.getElementById("ques").innerHTML = xmlHttp.responseText;
 				}
