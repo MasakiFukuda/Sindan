@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>診断系コンテンツ</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+	<script type="text/javascript">
+			
+			var questions = {
+    '1': {
+        text: '問１：山と海、どちらが好き？', 
+        options: [
+            {text: '山', point: 100, next: '2'}, 
+            {text: '海', point: 50, next: '2'}
+        ]
+    },
+    '2': {
+        text: '問２：ガンガン泳ぐ派？ビーチでまったり派？', 
+        options: [
+            {text: '泳ぐ', point: 5, next: '1'}, 
+            {text: 'まったり', point: 7, next: '1'}
+        ]
+    },
+}
+
+var totalPoint = 0;
+var count = 0;
+function setQuestion(questionId) {
+    var question = questions[questionId];
+    $('#question').text(question.text);
+    $('#point').text(totalPoint);
+
+    var optionA = question.options[0];
+    $('#optionA').text(optionA.text);
+    $('#optionAButton').click(function() {
+        totalPoint += optionA.point;
+        console.log(++count+"A");
+        console.log(optionA.point);
+        setQuestion(optionA.next);
+        
+    });
+
+    var optionB = question.options[1];
+    $('#optionB').text(optionB.text);
+    $('#optionBButton').click(function() {
+        totalPoint += optionB.point;
+        console.log(++count+"B");
+        console.log(optionB.point);
+        setQuestion(optionB.next);
+        
+    });
+}
+$(function() {
+    setQuestion('1');
+})
+
+		</script>
+</head>
+	<body>
+<span id="question"></span><br>
+<br>
+<span id="optionA"></span><input type="button" value="選択" id="optionAButton">
+　　
+<span id="optionB"></span><input type="button" value="選択" id="optionBButton"><br>
+<br>
+<span id="point"></span>ポイント
+
+	</body>
+</html>

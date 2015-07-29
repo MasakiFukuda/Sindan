@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang='ja'>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		
+		<script>
+			/*
+				**************************************************************
+				***************** Created by MasakiFukuda ******************
+				**************************************************************
+				
+			*/
+			var yesScore = [0,31,68,23,18,56,80,29,34,4,64];
+			var noScore = [0,69,11,58,90,6,52,13,39,19,2];
+			
+			var totalScore = 0;
+			var quesCount = 0;
+			function loadText(sel){
+				
+				
+				var score = 0;
+				if(sel == 0){
+					score = yesScore[quesCount++];
+				}else{
+					score = noScore[quesCount++];
+				}
+				totalScore += score;
+				
+				if(quesCount > 10){
+					location.href="hantei?name=gaku_fasion&point="+totalScore;
+				}else{
+					document.getElementById("num").innerHTML = "残り"+(11-quesCount)+"問";
+					var xmlHttp = new XMLHttpRequest();
+					xmlHttp.open("GET","http://localhost:1080/sindan/questions/ques"+quesCount+".txt",false);
+					xmlHttp.send(null);
+					document.getElementById("ques").innerHTML = xmlHttp.responseText;
+				}
+				
+				
+				
+			}
+			
+		</script>
+		
+	</head>
+	<body onload="loadText(0)">
+		
+		
+
+		<style type="text/css">
+			#ques{
+				width:800px;
+				height:200px;
+				text-align : center;
+				font-size: 50px;
+			}
+			#num{
+				width:auto;
+				height:20px;
+				text-align : right;
+				font-size: 25px;
+				margin-top: 20px;
+				margin-right: 550px;
+			}
+			
+			#butc{
+				
+			}
+			
+			#but{
+				
+			}
+		</style>
+		
+		
+		<p id="num"></p>
+		
+		<p id="ques"></p>
+		<div id="butc">
+			<button id="but" onclick="loadText(0)">
+			<img src="img/cat.jpg" alt="猫" height=700 width=800>
+			</button>
+			<button id="but" onclick="loadText(1)">
+			<img src="img/dog.jpg" alt="犬" height=100 width=100>
+			</button>
+		</div>
+		
+		
+		
+	</body>
+</html>
