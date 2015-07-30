@@ -44,7 +44,12 @@ body {
 }
 
 .school{
-  font-size: 30px;
+  font-size: 40px;
+}
+
+#logo{
+  text-align: left;
+  
 }
  
 @keyframes credits {
