@@ -3,15 +3,25 @@
 <html>
 	<head>
 		<title>test</title>
+		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
 	</head>
 	<body>
+		<script>
+			function replay(){
+				var host = location.host;
+				var path = location.pathname.split("/");
+				
+				var url = "http://"+host+"/"+path[1]+"/d.html";
+				location.href = url;
+			}
+					
+		</script>
+		
 		<div id="result">
 			<h1>${bean.title}</h1>
 			<p>${bean.text}</p>
-			${bean.imagePath}
-			<FORM action="/shindan/d.html?">
-				<INPUT type="submit" value="もう一度診断する">
-			</FORM>
+			${bean.imagePath}<br>
+			<button onclick="replay()">もう一度診断する</button>
 		</div>
 	</body>
 </html>
