@@ -5,7 +5,22 @@
 		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		
+		
+		<script src="jquery-2.1.4.min.js"></script>
 		<script>
+			
+			$(function(){
+				$("#but1").on("click",function(){
+					$("#ques").fadeOut("nomal");
+					
+					setTimeout("loadText(0)",300);
+				});
+				$("#but2").on("click",function(){
+					$("#ques").fadeOut("nomal");
+					
+					setTimeout("loadText(1)",300);
+				});
+			});
 			
 			console.log('**************************************************************');
 			console.log('****************** Created by MasakiFukuda *******************');
@@ -32,6 +47,7 @@
 				if(quesCount > 10){
 					location.href="hantei?name=gaku_animal&point="+totalScore;
 				}else{
+					
 					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
 					var xmlHttp = new XMLHttpRequest();
 					var host = location.host;
@@ -44,11 +60,14 @@
 					xmlHttp.open("GET",url,false);
 					xmlHttp.send(null);
 					document.getElementById("ques").innerHTML = xmlHttp.responseText;
+					$("#ques").fadeIn();
 				}
 				
 				
 				
 			}
+			
+			
 			
 			window.onunload = function() {};
 			history.forward();
@@ -80,7 +99,7 @@
 				text-align: center;	
 			}
 			
-			#but{
+			button{
 				font-size: 50px;
 				width: 150px;
 			}
@@ -91,8 +110,8 @@
 		
 		<p id="ques"></p><br>
 		<div id="butc">
-			<button id="but" onclick="loadText(0)" class="btn btn-primary">yes</button>
-			<button id="but" onclick="loadText(1)" class="btn btn-primary">no</button>
+			<button id="but1" class="btn btn-primary">yes</button>
+			<button id="but2" class="btn btn-primary">no</button>
 		</div>
 		
 		
