@@ -11,7 +11,7 @@
 				var host = location.host;
 				var path = location.pathname.split("/");
 				
-				var url = "http://"+host+"/"+path[1]+"/d.html";
+				var url = "http://"+host+"/"+path[1]+"/e.html";
 				location.href = url;
 			}
 					
@@ -21,7 +21,7 @@
 			<h1>${bean.title}</h1>
 			<p>${bean.text}</p>
 			${bean.imagePath}<br>
-			<button onclick="replay()">もう一度診断する</button>
+			<button onClick="replay()">もう一度診断する</button>
 		</div>
 	</body>
 </html>
