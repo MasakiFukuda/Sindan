@@ -23,6 +23,16 @@
   version="3.0"
   metadata-complete="true">
 	
+
+  <servlet>
+    <servlet-name>result</servlet-name>
+    <jsp-file>/show.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>result</servlet-name>
+    <url-pattern>/show</url-pattern>
+   </servlet-mapping>
+  
 	<servlet>
 		<servlet-name>test</servlet-name>
 		<servlet-class>SindanServlet</servlet-class>

@@ -21,7 +21,7 @@ public class SindanServlet extends HttpServlet{
 		Bean b=new Bean();
 		b=os.getSelect(number,name);
 		req.setAttribute("bean",b);
-		RequestDispatcher dispatcher=req.getRequestDispatcher("show.jsp");
+		RequestDispatcher dispatcher=req.getRequestDispatcher("show");
 		dispatcher.forward(req,res);
 	}
 }
