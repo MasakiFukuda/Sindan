@@ -1,10 +1,10 @@
 diff a/g.html b/g.html	(rejected hunks)
-@@ -54,7 +54,7 @@
+@@ -52,7 +52,7 @@
  				}else{
  					
  					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
 -					var imgUri = "<img src='"+images[quesCount]+"'>";
-+					var imgUri = "<img src='img/a_"+(quesCount-1)+"'>";
++					var imgUri = "<img src='"+images[quesCount-1]+"'>";
  					console.log(imgUri);
  					document.getElementById("image").innerHTML = imgUri;
  					

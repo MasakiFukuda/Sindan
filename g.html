@@ -38,13 +38,9 @@
 				
 				var score = 0;
 				if(sel == 0){
-					var _yscore = yesScore[quesCount++]+Math.floor(Math.random()*101);
-					console.log(_yscore);
-					score = _yscore;
+					score = yesScore[quesCount++];
 				}else{
-					var _nscore = noScore[quesCount++]+Math.floor(Math.random()*101);
-					console.log(_nscore);
-					score = _nscore;
+					score = noScore[quesCount++];
 				}
 				totalScore += score;
 				
