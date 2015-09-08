@@ -11,12 +11,12 @@
 			
 			$(function(){
 				$("#but1").on("click",function(){
-					$("#ques").slideUp("nomal");
+					$("#quesAll").slideUp("nomal");
 					
 					setTimeout("loadText(0)",300);
 				});
 				$("#but2").on("click",function(){
-					$("#ques").slideUp("nomal");
+					$("#quesAll").slideUp("nomal");
 					
 					setTimeout("loadText(1)",300);
 				});
@@ -65,7 +65,7 @@
 					xmlHttp.open("GET",url,false);
 					xmlHttp.send(null);
 					document.getElementById("ques").innerHTML = xmlHttp.responseText;
-					$("#ques").slideDown();
+					$("#quesAll").slideDown();
 				}
 				
 				
@@ -113,7 +113,10 @@
 		
 		<p id="num"></p>
 		
-		<p id="ques"></p><br>
+		<div id="quesAll">
+			<p id="ques"></p><br>
+		</div>
+		
 		<div id="butc">
 			<button id="but1" class="btn btn-primary">yes</button>
 			<button id="but2" class="btn btn-primary">no</button>
