@@ -30,9 +30,7 @@
 
 			var yesScore = [0,31,68,23,18,56,80,29,34,4,64];
 			var noScore = [0,69,11,58,90,6,52,13,39,19,2];
-			var images = ['https://upload.wikimedia.org/wikipedia/ja/1/16/%E6%97%A5%E6%9C%AC%E7%8C%AB_2008-4.jpg',
-						'http://nekogazou.com/wp-content/uploads/2013/01/55270573c8c1630b9b2901f4da9989c7.jpg',
-						'http://d13n9ry8xcpemi.cloudfront.net/photo/odai/400/0326ade1b6e6af6ffc49f7ac6c855443_400.jpg']
+
 			var totalScore = 0;
 			var quesCount = 0;
 			function loadText(sel){
@@ -56,7 +54,7 @@
 				}else{
 					
 					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
-					var imgUri = "<img src='"+images[quesCount]+"'>";
+					var imgUri = "<img src='img/a_"+(quesCount-1)+"'>";
 					console.log(imgUri);
 					document.getElementById("image").innerHTML = imgUri;
 					
