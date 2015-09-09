@@ -5,17 +5,18 @@
 		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="index.css" type="text/css" />
+		
 		<script src="jquery-2.1.4.min.js"></script>
 		<script>
 			
 			$(function(){
 				$("#but1").on("click",function(){
-					$("#ques").slideUp("nomal");
+					$("#quesAll").slideUp("nomal");
 					
 					setTimeout("loadText(0)",300);
 				});
 				$("#but2").on("click",function(){
-					$("#ques").slideUp("nomal");
+					$("#quesAll").slideUp("nomal");
 					
 					setTimeout("loadText(1)",300);
 				});
@@ -29,7 +30,11 @@
 
 			var yesScore = [0,31,68,23,18,56,80,29,34,4,64];
 			var noScore = [0,69,11,58,90,6,52,13,39,19,2];
-			
+			var images = ['https://upload.wikimedia.org/wikipedia/ja/1/16/%E6%97%A5%E6%9C%AC%E7%8C%AB_2008-4.jpg',
+						'sougen.jpg',
+						'sougen.jpg',
+						'sougen.jpg',
+						'sougen.jpg']
 			var totalScore = 0;
 			var quesCount = 0;
 			function loadText(sel){
@@ -37,17 +42,26 @@
 				
 				var score = 0;
 				if(sel == 0){
-					score = yesScore[quesCount++];
+					var _yscore = yesScore[quesCount++]+Math.floor(Math.random()*101);
+					console.log(_yscore);
+					score = _yscore;
 				}else{
-					score = noScore[quesCount++];
+					var _nscore = noScore[quesCount++]+Math.floor(Math.random()*101);
+					console.log(_nscore);
+					score = _nscore;
 				}
 				totalScore += score;
 				
 				if(quesCount > 10){
+					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
 					location.href="hantei?name=gaku_animal&point="+totalScore;
 				}else{
 					
 					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
+					var imgUri = "<img src='"+images[quesCount]+"'>";
+					console.log(imgUri);
+					document.getElementById("image").innerHTML = imgUri;
+					
 					var xmlHttp = new XMLHttpRequest();
 					var host = location.host;
 					var path = location.pathname.split("/");
@@ -59,15 +73,12 @@
 					xmlHttp.open("GET",url,false);
 					xmlHttp.send(null);
 					document.getElementById("ques").innerHTML = xmlHttp.responseText;
-					$("#ques").slideDown();
+					$("#quesAll").slideDown();
 				}
 				
 				
 				
 			}
-			
-			
-			
 			window.onunload = function() {};
 			history.forward();
 			
@@ -75,48 +86,23 @@
 		
 	</head>
 	<body onload="loadText(0)">
-		<div id="top">
-		</div>
-		<div id="wrapper">
-			<style type="text/css">
-						#ques{
-							width:auto;
-							height:200px;
-							text-align : center;
-							font-size: 50px;
-							padding: 0px 150px;
-						}
-						#num{
-							width:auto;
-							height:30px;
-							text-align : center;
-							font-size: 25px;
-							margin-top: 20px;
-						}
-						
-						#butc{
-							text-align: center;	
-						}
-						
-						button{
-							font-size: 50px;
-							width: 150px;
-						}
-					</style>
-					<div id="header"></div>
-					<center><h1>動物診断</h1></center>
-					
-					<p id="num"></p>
-					
-					<p id="ques"></p><br>
-					<div id="butc">
-						<button id="but1" class="btn btn-primary">yes</button>
-						<button id="but2" class="btn btn-primary">no</button>
-				<div id="right">
-				</div>	
-				<div id="left">
+		<div id="top">	
+			<div id="wrapper">		
+				<center><h1>動物診断</h1></center>
+				<div id="danson" align=right>
+					<p>「ダンソン！フィーザキー　ドゥーザティーサーザ　コンサッ！」</p>
 				</div>
-			</div>	
+				<p id="num"></p>
+				<div id="quesAll">
+					<p id="ques"></p><br>
+					<div id="image"></div>
+				</div>
+				<br>	
+				<div id="butc">
+					<button id="but1" class="btn btn-primary">yes</button>
+					<button id="but2" class="btn btn-primary">no</button>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
