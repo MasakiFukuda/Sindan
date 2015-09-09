@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Bean;
 
 public class SindanServlet extends HttpServlet{
-	protected void doGet(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException{
+	protected void doPost(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException{
 		req.setCharacterEncoding("Windows-31J");
 		String name=req.getParameter("name");
 		int point=Integer.parseInt(req.getParameter("point"));
