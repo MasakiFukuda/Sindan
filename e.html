@@ -4,8 +4,7 @@
 		<meta charset='utf-8'>
 		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		
-		
+		<link rel="stylesheet" href="index.css" type="text/css" />
 		<script src="jquery-2.1.4.min.js"></script>
 		<script>
 			
@@ -76,45 +75,48 @@
 		
 	</head>
 	<body onload="loadText(0)">
-		
-		
-
-		<style type="text/css">
-			#ques{
-				width:auto;
-				height:200px;
-				text-align : center;
-				font-size: 50px;
-				padding: 0px 150px;
-			}
-			#num{
-				width:auto;
-				height:30px;
-				text-align : center;
-				font-size: 25px;
-				margin-top: 20px;
-			}
-			
-			#butc{
-				text-align: center;	
-			}
-			
-			button{
-				font-size: 50px;
-				width: 150px;
-			}
-		</style>
-		<center><h1>動物診断</h1></center>
-		
-		<p id="num"></p>
-		
-		<p id="ques"></p><br>
-		<div id="butc">
-			<button id="but1" class="btn btn-primary">yes</button>
-			<button id="but2" class="btn btn-primary">no</button>
+		<div id="top">
 		</div>
-		
-		
-		
+		<div id="wrapper">
+			<style type="text/css">
+						#ques{
+							width:auto;
+							height:200px;
+							text-align : center;
+							font-size: 50px;
+							padding: 0px 150px;
+						}
+						#num{
+							width:auto;
+							height:30px;
+							text-align : center;
+							font-size: 25px;
+							margin-top: 20px;
+						}
+						
+						#butc{
+							text-align: center;	
+						}
+						
+						button{
+							font-size: 50px;
+							width: 150px;
+						}
+					</style>
+					<div id="header"></div>
+					<center><h1>動物診断</h1></center>
+					
+					<p id="num"></p>
+					
+					<p id="ques"></p><br>
+					<div id="butc">
+						<button id="but1" class="btn btn-primary">yes</button>
+						<button id="but2" class="btn btn-primary">no</button>
+				<div id="right">
+				</div>	
+				<div id="left">
+				</div>
+			</div>	
+		</div>
 	</body>
 </html>

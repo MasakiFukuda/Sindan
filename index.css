@@ -1,0 +1,50 @@
+body{
+	background-image:url("animal.jpg");
+	background-repeat:repeat;
+}
+#wrapper{
+	background-color: #ffffff;
+	width:auto;
+	height:630px;
+}
+h1{
+	padding-top: 20px;
+	margin-top:20px;
+}
+#top{
+	padding-top:50px
+}
+
+#ques{
+	width:auto;
+	height:60px;
+	text-align : center;
+	font-size: 40px;
+	padding: 0px 150px;
+}
+
+#num{
+	width:auto;
+	height:30px;
+	text-align : center;
+	font-size: 25px;
+	margin-top: 20px;
+}
+
+#butc{
+	text-align: center;	
+	padding-bottom:30px;
+}
+
+button{
+	font-size: 50px;
+	width: 150px;
+}
+#image{
+	text-align:center;
+	background-image:url("egasira.jpg");
+	background-position:70pt;
+}
+#danson{
+	font-family:"SimHei";
+}	
