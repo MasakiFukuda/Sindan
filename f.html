@@ -54,6 +54,17 @@
 			var quesCount = 0;
 			//今何問目かをカウントするための変数、いろんな場所でこの変数の値を参照しているので値の変化に気を配るように
 			
+			
+			 // プログレスバーの値を増やす
+			 function updateProgress(newValue) {
+			 	var progressBar = document.getElementById('p');
+       		 	progressBar.value = newValue*10;
+   	   		 	//progressValue.innerHTML = newValue;
+        	 	// 1秒後に1増やして実行
+
+        	 }
+        	
+			
 			function loadText(sel){
 				//質問文の読み込み用の関数、スコアの加算もここでやっちゃってる
 				//YESの場合は引数として0を、NOの場合は1を与えている
@@ -61,6 +72,8 @@
 				
 				var score = 0;
 				//今答えた質問のポイントを格納するための一時変数、「よく考えたらこの変数使わなくてもできね？」とかいっちゃだめ
+				
+				updateProgress(quesCount);
 				
 				if(sel == 0){
 					//引数が0の場合、つまりYESの場合の処理
@@ -95,6 +108,10 @@
 					
 					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
 					//長くてめんどいけど上でも書いてる残り問題数の表示を減らす処理
+					
+							 // オブジェクトの取得
+		 	
+
 					
 					
 					//ここからは数行は読み飛ばしてもOK
@@ -215,6 +232,9 @@
 				YES,NOボタン　プログレスバーとかもこのボタン要素の下に突っ込むといいと思う
 			-->
 		</div>
+		<p>
+			ぷろぐれすばあああああ: <progress value="0" id="p" max=100></progress>
+		</p>
 		
 		<form action="hantei" method="post" name="frm">
 			<!--
