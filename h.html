@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang='ja'>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
+		<!-- ぶっちゃけこのメタ要素なくてもいい　一応javaScript打つときに書いとくと良いっぽい -->
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<!-- ボタンのスタイルのためにブートストラップ読み込んでる　使わないならなくてもいい　てかむしろいらないかも -->
+		
+		<script src="jquery-2.1.4.min.js"></script>
+		<!-- jQueryの読み込み scriptの中でjQueryも使ってるから絶対消さないで欲しいっす -->
+		
+		<script>
+			//こっからjavaScriptの処理
+			
+			$(function(){
+				//jQueryの記述　ページのロード時に最初に実行される処理の記述
+				//この中に書いてあるのは問題文をアニメーションさせるための記述だからあんま気にしなくて平気
+				
+				$("#but1").on("click",function(){
+					//yesのボタンを押したときの処理を登録する記述
+					//要するにHTML側でonclickって書くのと同じように考えちゃっておっけー
+					
+					$("#quesAll").slideUp("nomal");
+					//問題文をスライドで書き換えるときのアニメーション
+					
+					setTimeout("loadText(0)",300);
+					//ここで遅延させないとアニメーションが終わる前に問題文だけ書き換わっちゃう
+					//要するにこうしないとダサい
+				});
+				$("#but2").on("click",function(){
+					//noのボタンを押したときの処理を登録云々かんぬん
+					$("#quesAll").slideUp("nomal");
+					//問題文をスライドで書き換えるときのアニメーション
+					
+					setTimeout("loadText(1)",300);
+				});
+			});
+			
+			console.log('**************************************************************');
+			console.log('****************** Created by MasakiFukuda *******************');
+			console.log('**************************************************************');
+			
+				
+
+			var yesScore = [0,31,68,23,18,56,80,29,34,4,64];
+			//YESを選んだ際のスコアの配列、処理の都合でページ読み込み時に0個目の要素が読み込まれるので最初のスコアは必ず0
+			var noScore = [0,69,11,58,90,6,52,13,39,19,2];
+			//NOを選んだ際のスコアの配列
+			
+			var totalScore = 0;
+			//スコアの合計値を格納するための変数、このくらいは名前でわかると思う？
+			var quesCount = 0;
+			//今何問目かをカウントするための変数、いろんな場所でこの変数の値を参照しているので値の変化に気を配るように
+			
+			
+			 // プログレスバーの値を増やす
+			 function updateProgress(newValue) {
+			 	var progressBar = document.getElementById('p');
+       		 	progressBar.value = newValue*10;
+   	   		 	//progressValue.innerHTML = newValue;
+        	 	// 1秒後に1増やして実行
+
+        	 }
+        	
+			
+			function loadText(sel){
+				//質問文の読み込み用の関数、スコアの加算もここでやっちゃってる
+				//YESの場合は引数として0を、NOの場合は1を与えている
+				
+				
+				var score = 0;
+				//今答えた質問のポイントを格納するための一時変数、「よく考えたらこの変数使わなくてもできね？」とかいっちゃだめ
+				
+				updateProgress(quesCount);
+				
+				if(sel == 0){
+					//引数が0の場合、つまりYESの場合の処理
+					
+					var _yscore = yesScore[quesCount++];
+					score = _yscore;
+					//一時変数scoreにYES用のスコアの配列から質問番号に対応するスコアを登録
+				}else{
+					//引数が0以外、NOの時の処理
+					
+					var _nscore = noScore[quesCount++];
+					score = _nscore;
+					//YESでやってる処理のNO版、詳しくは上見て
+				}
+				
+				totalScore += score;
+				//scoreの中身を実際に合計に加算
+				
+				if(quesCount > 10){
+					//今答えた質問が10問目の場合の処理
+					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
+					//質問画面の[残り～問]ってのの問題数を減らす処理、
+					//下にも書いてるんだけどここにも書かないと最後の問題を答えたとき[残り1問]のままになっちゃう
+					
+					document.frm.point.value = totalScore;
+					//htmlに書いてあるformの中のpointって入力フォームのパラメーターに合計スコアを入れてる
+					document.frm.submit();
+					//submitの呼び出し、要するにここでformの中身をサーブレットに送信してる
+					
+				}else{
+					//最後の問題じゃない場合の処理
+					
+					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
+					//長くてめんどいけど上でも書いてる残り問題数の表示を減らす処理
+					
+							 // オブジェクトの取得
+		 			var imgUri = "<img src='img/a_"+(quesCount-1)+".jpg'>";
+					console.log(imgUri);
+					document.getElementById("image").innerHTML = imgUri;
+
+					
+					
+					//ここからは数行は読み飛ばしてもOK
+					
+					var xmlHttp = new XMLHttpRequest();
+					//Ajaxを使うための変数、それ以上説明のしようがない
+					
+					var host = location.host;
+					var path = location.pathname.split("/");
+					var url = "http://"+host+"/"+path[1]+"/questions/ques"+quesCount+".txt";
+					//だいぶめんどくさい事してるけど要するに上三行で質問文の格納先のURLを取得してる
+					//ここで横着してlocalhost:1080～って書くとtomcatを動かしてるPCとは
+					//別のPCからアクセスしたときに質問文を取得できない
+					
+					console.log(url);
+					//URLが正しく生成できてるか確かめたかったからコンソールに出しちゃった
+					
+					xmlHttp.open("GET",url,false);
+					//Ajaxでサーバに繋ぐ処理 引数は前から順に、
+					//(ゲットでアクセスするよ！,このURLにアクセスするよ！,非同期通信はしないよ！(非同期の場合true))
+					
+					xmlHttp.send(null);
+					//sendで実際に通信の実行 引数がnullなのはあっちからデータが欲しいだけでこっちから送るものはないから
+					
+					document.getElementById("ques").innerHTML = xmlHttp.responseText;
+					//問題文の書き換え処理 quesってIDの中身にAjaxでとってきたデータを入れてる
+					
+					
+					
+					$("#quesAll").slideDown();
+					//問題文をスライドで書き換えるときのアニメーション
+				}
+				
+				
+				
+			}
+			
+			
+			
+			window.onunload = function() {};
+			history.forward();
+			//戻るボタンで結果ページからこのページに戻れないようにするおまじない
+			
+		</script>
+		
+	</head>
+	<body onload="loadText(0)">
+		<!--
+			bodyのload時　つまり最初にページが読み込まれたときにloadText関数を実行する処理
+			ここで1回実行するようにしとかないと1問目の問題文が出ない　悲しい
+		-->
+		
+		<!-- CSSゾーン　特に特別な事してないし読み飛ばしてOK -->
+		
+		<style type="text/css">
+			#ques{
+				width:auto;
+				height:200px;
+				text-align : center;
+				font-size: 50px;
+				padding: 0px 150px;
+			}
+			#num{
+				width:auto;
+				height:30px;
+				text-align : center;
+				font-size: 25px;
+				margin-top: 20px;
+			}
+			
+			#butc{
+				text-align: center;	
+			}
+			
+			button{
+				font-size: 50px;
+				width: 150px;
+			}
+		</style>
+		
+		<!-- CSS終わり -->
+		
+		
+		<center><h1>動物診断</h1></center>
+		<!-- タイトゥル -->
+		
+		<p id="num"></p>
+		<!--
+			残り質問数を表示するためのpタグ
+			HTML側で空のタグ作っといてjavScriptから参照してタグボディを動的に変えてる
+		-->
+		
+		<div id="quesAll">
+			<p>
+			ぷろぐれすばあああああ: <progress value="0" id="p" max=100></progress>
+			</p>
+			<!--
+				質問変更時のアニメーションのためのdivタグ
+				質問と一緒にアニメーションさせたい要素はこのdivタグの中に記述する 画像とかね
+				プログレスバーは質問ごとにいちいち消えちゃだめだからここには書かないと思う
+			-->
+			
+			<p id="ques"></p><br>
+			<!--
+				質問文を表示するための空のpタグ
+				動的に内容を変える仕組みは上と同じ
+			-->
+			<div id="image"></div>
+		</div>
+		
+		
+		<div id="butc">
+			<!--
+				このdivタグって何のためにあんの？って一瞬思ったらたぶんCSSのためっぽい
+				正直実装したのがだいぶ前だからよく覚えてない　たぶん処理には関係ない　たぶん
+			-->
+			
+			
+			<button id="but1" class="btn btn-primary">yes</button>
+			<button id="but2" class="btn btn-primary">no</button>
+			<!--
+				YES,NOボタン　プログレスバーとかもこのボタン要素の下に突っ込むといいと思う
+			-->
+		</div>
+		
+		
+		<form action="hantei" method="post" name="frm">
+			<!--
+				合計点、DBの表名をPOSTでサーブレットに送るためのフォーム
+				上のスクリプトでも書いてるとおり合計点を一度このフォームのパラメータに突っ込んでからスクリプトのなかで送信させてる
+				
+				どうでも良いけどユーザに見えない隠し機能ってわくわくするよね
+			-->
+			
+			<input type="hidden" name="name" value="gaku_animal">
+			<!--
+				表名をサーブレットに送信するための入力ボックス
+				今はアニマル診断なのでgaku_animalになってるので、後で他の診断のページを作るときはここのvalueを書き換える
+				
+				inputタグのtypeを[hidden]にしておくと実際には画面に表示されない隠し入力ボックスになる
+				今回はユーザ側からフォームで送信してる事が見えないように隠しにしてる
+			-->
+			
+			<input type="hidden" name="point">
+			<!--
+				合計点を入れるための隠し入力ボックス
+				実際には上のスクリプトから合計点を入れてる
+			-->
+			
+		</form>
+		
+	</body>
+	
+	<!-- 
+		とりあえず質問に答えるごとに必ずloadTextが呼び出されるのでプログレスバーを進ませる時の処理はその中
+		具体的には93行目あたりのelseの中に書くと良いと思うんだけどもしかすると残り問題数の減算処理と同じで
+		2カ所に記述しないといけなくなるかもしれないのでその辺は適宜試して欲しい
+		
+		
+	-->
+	
+</html>
