@@ -11,7 +11,7 @@
 				var host = location.host;
 				var path = location.pathname.split("/");
 				
-				var url = "http://"+host+"/"+path[1]+"/f.html";
+				var url = "http://"+host+"/"+path[1]+"/h.html";
 				location.href = url;
 			}
 					
