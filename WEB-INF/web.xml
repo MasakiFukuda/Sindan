@@ -41,6 +41,15 @@
 		<servlet-name>test</servlet-name>
 		<url-pattern>/hantei</url-pattern>
 	</servlet-mapping>
+  
+  <servlet>
+    <servlet-name>result2</servlet-name>
+    <jsp-file>/Answer.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>result2</servlet-name>
+    <url-pattern>/Answer</url-pattern>
+   </servlet-mapping>
 	
 	<error-page>
     	<error-code>404</error-code>

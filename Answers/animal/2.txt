@@ -1,0 +1,12 @@
+<div id="result">
+	<h1>貴方は馬タイプです！</h1>
+	
+	<p>
+	物事に対してとことん突き進むでしょう。<br>
+	しかし、一度でも、その物事につまずくと立ち直れなくなります。<br> 
+	ですから、うまくつまずかないように立ち回りましょう。
+	</p>
+	
+	<img src="http://yahoo.jp/box/Lno7k5"><br>
+	<button onClick="location.reload()">もう一度診断する</button>
+ </div>
