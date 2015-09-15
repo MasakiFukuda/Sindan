@@ -121,6 +121,8 @@
 					//質問画面の[残り～問]ってのの問題数を減らす処理、
 					//下にも書いてるんだけどここにも書かないと最後の問題を答えたとき[残り1問]のままになっちゃう
 					
+					$("#mainContent").hide();
+					
 					$("head").append("<link>");
 					css = $("head").children(":last");
 					css.attr({
@@ -139,6 +141,8 @@
 
 					$("#mainContent").load(url);
 					//mainContentというidのタグの中 この場合bodyの中身全て丸ごとajaxでとってきたデータに書き換える
+					
+					$('#mainContent').fadeIn(1500);
 					
 				}else{
 					//最後の問題じゃない場合の処理
