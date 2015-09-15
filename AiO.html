@@ -122,6 +122,7 @@
 					//下にも書いてるんだけどここにも書かないと最後の問題を答えたとき[残り1問]のままになっちゃう
 					
 					$("#mainContent").hide();
+					//今まで表示していたmainContentの内容を非表示にしておく
 					
 					$("head").append("<link>");
 					css = $("head").children(":last");
@@ -143,6 +144,7 @@
 					//mainContentというidのタグの中 この場合bodyの中身全て丸ごとajaxでとってきたデータに書き換える
 					
 					$('#mainContent').fadeIn(1500);
+					//上で書き換えたmainContentの内容をフェードイン
 					
 				}else{
 					//最後の問題じゃない場合の処理
@@ -191,11 +193,6 @@
 				
 			}
 			
-			
-			
-			window.onunload = function() {};
-			history.forward();
-			//戻るボタンで結果ページからこのページに戻れないようにするおまじない
 			
 		</script>
 		
