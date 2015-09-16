@@ -1,25 +1,8 @@
-
 <!DOCTYPE html>
 <html lang='ja'>
 	<head>
+		<link rel="stylesheet" type="text/css" href="index.css">
 		<meta charset='utf-8'>
-		
-		<!--
-			必ず最初に読め!! by福田
-			
-			診断ページ内の全処理(質問～結果の取得～結果ページの表示)を全て1つのページで行っているバージョンです
-			サーブレット、jsp、DBへの接続用のコネクタクラスなどを一切使ってませんが、ajaxの仕様上tomcatがないと動かないのは変わりません。
-			
-			質問、結果の両方をajaxで取ってきているのでオラクルを一切使わずに管理できる代わりに、
-			めちゃくちゃ可読性が低い & CSSの適用がしづらい状態になってます。
-			
-			結果ページの内容については./answers/animalフォルダ内のテキストファイルを確認してください
-			結果ページCSSはresult.cssというファイルを結果表示時に動的に読み込んでいるのでそちらを修正するようにしてください
-			
-			結果ページでF5キーで更新すれば診断を最初から再実行できるようになってます。
-		
-		-->
-		
 		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
 		<!-- ぶっちゃけこのメタ要素なくてもいい　一応javaScript打つときに書いとくと良いっぽい -->
 		
@@ -89,7 +72,7 @@
 				
 				
 				var score = 0;
-				//今答えた質問のポイントを格納するための一時変数、「よく考えたらこの変数使わなくてもできない？」とかいっちゃだめ
+				//今答えた質問のポイントを格納するための一時変数、「よく考えたらこの変数使わなくできない？」とかいっちゃだめ
 				
 				updateProgress(quesCount);
 				
@@ -116,30 +99,10 @@
 					//質問画面の[残り～問]ってのの問題数を減らす処理、
 					//下にも書いてるんだけどここにも書かないと最後の問題を答えたとき[残り1問]のままになっちゃう
 					
-					$("#mainContent").hide();
-					//今まで表示していたmainContentの内容を非表示にしておく
-					
-					$("head").append("<link>");
-					css = $("head").children(":last");
-					css.attr({
-						rel:"stylesheet",
-						href:"result.css"
-					});
-					//結果表示ページのCSSの読み込み
-					
-					totalScore %= 15;
-					//最初はサーブレット内で行っていた結果取得のための計算処理 サーブレット非使用のバージョンなのでスクリプト内に記述
-					
-					var host = location.host;
-					var path = location.pathname.split("/");
-					var url = "http://"+host+"/"+path[1]+"/Answers/animal/"+totalScore+".txt";
-					//上三行で結果データをajaxで取得するためのurlを生成
-
-					$("#mainContent").load(url);
-					//mainContentというidのタグの中 この場合bodyの中身全て丸ごとajaxでとってきたデータに書き換える
-					
-					$('#mainContent').fadeIn(1500);
-					//上で書き換えたmainContentの内容をフェードイン
+					document.frm.point.value = totalScore;
+					//htmlに書いてあるformの中のpointって入力フォームのパラメーターに合計スコアを入れてる
+					document.frm.submit();
+					//submitの呼び出し、要するにここでformの中身をサーブレットに送信してる
 					
 				}else{
 					//最後の問題じゃない場合の処理
@@ -147,10 +110,11 @@
 					document.getElementById("num").innerHTML = "[ 残り"+(11-quesCount)+"問 ]";
 					//長くてめんどいけど上でも書いてる残り問題数の表示を減らす処理
 					
-					
-		 			var imgUri = "<img src='img/animal/a_"+(quesCount-1)+".jpg' style='width:30%;height:30%;'>";
+							 // オブジェクトの取得
+		 			var imgUri = "<img src='img/animal/a_"+(quesCount-1)+".jpg'id='abc'>";
+					console.log(imgUri);
 					document.getElementById("image").innerHTML = imgUri;
-					//質問ページの画像の切り替え処理
+
 					
 					
 					//ここからは数行は読み飛ばしてもOK
@@ -165,6 +129,8 @@
 					//ここで横着してlocalhost:1080～って書くとtomcatを動かしてるPCとは
 					//別のPCからアクセスしたときに質問文を取得できない
 					
+					console.log(url);
+					//URLが正しく生成できてるか確かめたかったからコンソールに出しちゃった
 					
 					xmlHttp.open("GET",url,false);
 					//Ajaxでサーバに繋ぐ処理 引数は前から順に、
@@ -187,51 +153,22 @@
 			}
 			
 			
+			
+			window.onunload = function() {};
+			history.forward();
+			//戻るボタンで結果ページからこのページに戻れないようにするおまじない
+			
 		</script>
 		
 	</head>
 	<body onload="loadText(0)">
+		<div id="header">
+		</div>
 		<!--
 			bodyのload時　つまり最初にページが読み込まれたときにloadText関数を実行する処理
 			ここで1回実行するようにしとかないと1問目の問題文が出ない　悲しい
 		-->
-		
-		<!-- CSSゾーン　特に特別な事してないし読み飛ばしてOK -->
-		
-		<style type="text/css">
-			#ques{
-				width:auto;
-				height:70px;
-				text-align : center;
-				font-size: 50px;
-				padding: 0px 20px;
-			}
-			#num{
-				width:auto;
-				height:30px;
-				text-align : center;
-				font-size: 25px;
-				margin-top: 20px;
-			}
-			
-			#butc{
-				text-align: center;	
-			}
-			
-			#but1{
-				font-size: 50px;
-				width: 150px;
-			}
-			
-			#but2{
-				font-size: 50px;
-				width: 150px;
-			}
-		</style>
-		
-		<!-- CSS終わり -->
-		
-		<div id="mainContent">
+		<div id="wrapper">
 			<center><h1>動物診断</h1></center>
 			<!-- タイトゥル -->
 			
@@ -240,24 +177,23 @@
 				残り質問数を表示するためのpタグ
 				HTML側で空のタグ作っといてjavScriptから参照してタグボディを動的に変えてる
 			-->
-			<p style="text-align:center;">
-				<progress value="0" id="p" max=100></progress>
-			</p>
 			
 			<div id="quesAll">
-				
+				<p>
+				ぷろぐれすばあああああ: <progress value="0" id="p" max=100></progress>
+				</p>
 				<!--
 					質問変更時のアニメーションのためのdivタグ
 					質問と一緒にアニメーションさせたい要素はこのdivタグの中に記述する 画像とかね
 					プログレスバーは質問ごとにいちいち消えちゃだめだからここには書かないと思う
 				-->
 				
-				<p id="ques"></p>
+				<p id="ques"></p><br>
 				<!--
 					質問文を表示するための空のpタグ
 					動的に内容を変える仕組みは上と同じ
 				-->
-				<div id="image" style="text-align:center;"></div>
+				<div id="image"></div>
 			</div>
 			
 			
@@ -275,17 +211,41 @@
 				-->
 			</div>
 		
+		
+		<form action="hantei" method="post" name="frm">
+			<!--
+				合計点、DBの表名をPOSTでサーブレットに送るためのフォーム
+				上のスクリプトでも書いてるとおり合計点を一度このフォームのパラメータに突っ込んでからスクリプトのなかで送信させてる
+				
+				どうでも良いけどユーザに見えない隠し機能ってわくわくするよね
+			-->
+			
+			<input type="hidden" name="name" value="gaku_animal">
+			<!--
+				表名をサーブレットに送信するための入力ボックス
+				今はアニマル診断なのでgaku_animalになってるので、後で他の診断のページを作るときはここのvalueを書き換える
+				
+				inputタグのtypeを[hidden]にしておくと実際には画面に表示されない隠し入力ボックスになる
+				今回はユーザ側からフォームで送信してる事が見えないように隠しにしてる
+			-->
+			
+			<input type="hidden" name="point">
+			<!--
+				合計点を入れるための隠し入力ボックス
+				実際には上のスクリプトから合計点を入れてる
+			-->
+			
+			</form>
+		</div>	
+		<div id="footer">
 		</div>
-		
-		
 	</body>
-	
-	<!-- 
+</html>
+<!-- 
 		とりあえず質問に答えるごとに必ずloadTextが呼び出されるのでプログレスバーを進ませる時の処理はその中
 		具体的には93行目あたりのelseの中に書くと良いと思うんだけどもしかすると残り問題数の減算処理と同じで
 		2カ所に記述しないといけなくなるかもしれないのでその辺は適宜試して欲しい
 		
-		2015/09/10
+		
 	-->
 	
-</html>
