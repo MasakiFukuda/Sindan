@@ -1,0 +1,12 @@
+<div id="result">
+	<h1>貴方はきつねタイプです</h1>
+	
+	<p>
+	まず、一言いうと影が薄く周りに気づかれにくいです。<br>
+	ですが、周りの人の性格を見分ける事にずば抜けていいです。<br>
+	なので、人から相談相手として相談にのるのに向いてます。
+	</p>
+	
+	<img src="http://yahoo.jp/box/Vdy5lF"><br>
+	<button onClick="location.reload()">もう一度診断する</button>
+</div>

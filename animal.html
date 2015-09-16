@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang='ja'>
 	<head>
+		<link rel="stylesheet" type="text/css" href="index.css">
 		<meta charset='utf-8'>
 		<meta http-content-equiv='Content-ScriptType' content='text/javascript'>
 		<!-- ぶっちゃけこのメタ要素なくてもいい　一応javaScript打つときに書いとくと良いっぽい -->
@@ -71,7 +72,7 @@
 				
 				
 				var score = 0;
-				//今答えた質問のポイントを格納するための一時変数、「よく考えたらこの変数使わなくてもできね？」とかいっちゃだめ
+				//今答えた質問のポイントを格納するための一時変数、「よく考えたらこの変数使わなくできない？」とかいっちゃだめ
 				
 				updateProgress(quesCount);
 				
@@ -110,7 +111,7 @@
 					//長くてめんどいけど上でも書いてる残り問題数の表示を減らす処理
 					
 							 // オブジェクトの取得
-		 			var imgUri = "<img src='img/a_"+(quesCount-1)+".jpg'>";
+		 			var imgUri = "<img src='img/animal/a_"+(quesCount-1)+".jpg'id='abc'>";
 					console.log(imgUri);
 					document.getElementById("image").innerHTML = imgUri;
 
@@ -161,83 +162,54 @@
 		
 	</head>
 	<body onload="loadText(0)">
+		<div id="header">
+		</div>
 		<!--
 			bodyのload時　つまり最初にページが読み込まれたときにloadText関数を実行する処理
 			ここで1回実行するようにしとかないと1問目の問題文が出ない　悲しい
 		-->
-		
-		<!-- CSSゾーン　特に特別な事してないし読み飛ばしてOK -->
-		
-		<style type="text/css">
-			#ques{
-				width:auto;
-				height:200px;
-				text-align : center;
-				font-size: 50px;
-				padding: 0px 150px;
-			}
-			#num{
-				width:auto;
-				height:30px;
-				text-align : center;
-				font-size: 25px;
-				margin-top: 20px;
-			}
+		<div id="wrapper">
+			<center><h1>動物診断</h1></center>
+			<!-- タイトゥル -->
 			
-			#butc{
-				text-align: center;	
-			}
-			
-			button{
-				font-size: 50px;
-				width: 150px;
-			}
-		</style>
-		
-		<!-- CSS終わり -->
-		
-		
-		<center><h1>動物診断</h1></center>
-		<!-- タイトゥル -->
-		
-		<p id="num"></p>
-		<!--
-			残り質問数を表示するためのpタグ
-			HTML側で空のタグ作っといてjavScriptから参照してタグボディを動的に変えてる
-		-->
-		
-		<div id="quesAll">
-			<p>
-			ぷろぐれすばあああああ: <progress value="0" id="p" max=100></progress>
-			</p>
+			<p id="num"></p>
 			<!--
-				質問変更時のアニメーションのためのdivタグ
-				質問と一緒にアニメーションさせたい要素はこのdivタグの中に記述する 画像とかね
-				プログレスバーは質問ごとにいちいち消えちゃだめだからここには書かないと思う
+				残り質問数を表示するためのpタグ
+				HTML側で空のタグ作っといてjavScriptから参照してタグボディを動的に変えてる
 			-->
 			
-			<p id="ques"></p><br>
-			<!--
-				質問文を表示するための空のpタグ
-				動的に内容を変える仕組みは上と同じ
-			-->
-			<div id="image"></div>
-		</div>
-		
-		
-		<div id="butc">
-			<!--
-				このdivタグって何のためにあんの？って一瞬思ったらたぶんCSSのためっぽい
-				正直実装したのがだいぶ前だからよく覚えてない　たぶん処理には関係ない　たぶん
-			-->
+			<div id="quesAll">
+				<p>
+				ぷろぐれすばあああああ: <progress value="0" id="p" max=100></progress>
+				</p>
+				<!--
+					質問変更時のアニメーションのためのdivタグ
+					質問と一緒にアニメーションさせたい要素はこのdivタグの中に記述する 画像とかね
+					プログレスバーは質問ごとにいちいち消えちゃだめだからここには書かないと思う
+				-->
+				
+				<p id="ques"></p><br>
+				<!--
+					質問文を表示するための空のpタグ
+					動的に内容を変える仕組みは上と同じ
+				-->
+				<div id="image"></div>
+			</div>
 			
 			
-			<button id="but1" class="btn btn-primary">yes</button>
-			<button id="but2" class="btn btn-primary">no</button>
-			<!--
-				YES,NOボタン　プログレスバーとかもこのボタン要素の下に突っ込むといいと思う
-			-->
-		</div>
+			<div id="butc">
+				<!--
+					このdivタグって何のためにあんの？って一瞬思ったらたぶんCSSのためっぽい
+					正直実装したのがだいぶ前だからよく覚えてない　たぶん処理には関係ない　たぶん
+				-->
+				
+				
+				<button id="but1" class="btn btn-primary">yes</button>
+				<button id="but2" class="btn btn-primary">no</button>
+				<!--
+					YES,NOボタン　プログレスバーとかもこのボタン要素の下に突っ込むといいと思う
+				-->
+			</div>
 		
 		
 		<form action="hantei" method="post" name="frm">
@@ -263,11 +235,13 @@
 				実際には上のスクリプトから合計点を入れてる
 			-->
 			
-		</form>
-		
+			</form>
+		</div>	
+		<div id="footer">
+		</div>
 	</body>
-	
-	<!-- 
+</html>
+<!-- 
 		とりあえず質問に答えるごとに必ずloadTextが呼び出されるのでプログレスバーを進ませる時の処理はその中
 		具体的には93行目あたりのelseの中に書くと良いと思うんだけどもしかすると残り問題数の減算処理と同じで
 		2カ所に記述しないといけなくなるかもしれないのでその辺は適宜試して欲しい
@@ -275,4 +249,3 @@
 		
 	-->
 	
-</html>

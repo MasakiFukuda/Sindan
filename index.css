@@ -1,31 +1,28 @@
-body{
+#header{
+	width:auto;
+	height:110px;
 	background-image:url("animal.jpg");
-	background-repeat:repeat;
 }
 #wrapper{
 	background-color: #ffffff;
 	width:auto;
-	height:630px;
+	height:770px;
 }
 h1{
 	padding-top: 20px;
 	margin-top:20px;
 }
-#top{
-	padding-top:50px
-}
-
 #ques{
 	width:auto;
-	height:60px;
+	height:50px;
 	text-align : center;
 	font-size: 40px;
-	padding: 0px 150px;
+	padding: 0px 100px;
 }
 
 #num{
 	width:auto;
-	height:30px;
+	height:10px;
 	text-align : center;
 	font-size: 25px;
 	margin-top: 20px;
@@ -41,10 +38,19 @@ button{
 	width: 150px;
 }
 #image{
+	background-position:520px,0px,0px,0px;
 	text-align:center;
-	background-image:url("egasira.jpg");
-	background-position:70pt;
+	background-image:url("panda.png");
+	background-repeat:no-repeat;
+	padding-bottom:55px;
+	padding-top:40px;
 }
-#danson{
-	font-family:"SimHei";
-}	
+#footer{
+	width:auto;
+	height:110px;
+	background-image:url("animal.jpg");
+}
+#img.img1{
+	width:auto;
+	height:600px;
+}
